@@ -3,28 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda Online</title>
+    <title>YankoCompany - Tienda Online</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #e74c3c;
+            --accent-color: #3498db;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --text-color: #333;
+            --text-light: #7f8c8d;
+        }
+        
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
         body {
-            background-color: #f5f5f5;
-            color: #333;
+            background-color: #f9f9f9;
+            color: var(--text-color);
+            line-height: 1.6;
         }
         
         header {
-            background-color: #2c3e50;
+            background-color: var(--primary-color);
             color: white;
             padding: 15px 0;
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
         .container {
@@ -41,14 +53,25 @@
         }
         
         .logo {
-            font-size: 24px;
-            font-weight: bold;
+            font-size: 28px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .logo span {
+            color: var(--secondary-color);
         }
         
         .search-cart {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 20px;
         }
         
         .search-box {
@@ -56,10 +79,24 @@
         }
         
         .search-box input {
-            padding: 8px 15px;
-            border-radius: 20px;
+            padding: 10px 15px;
+            padding-right: 40px;
+            border-radius: 30px;
             border: none;
             width: 200px;
+            background-color: rgba(255,255,255,0.2);
+            color: white;
+            transition: all 0.3s;
+        }
+        
+        .search-box input::placeholder {
+            color: rgba(255,255,255,0.7);
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            background-color: rgba(255,255,255,0.3);
+            width: 250px;
         }
         
         .search-box button {
@@ -69,78 +106,118 @@
             transform: translateY(-50%);
             background: none;
             border: none;
-            color: #2c3e50;
+            color: white;
             cursor: pointer;
         }
         
         .cart-icon {
             position: relative;
             cursor: pointer;
+            font-size: 20px;
         }
         
         .cart-count {
             position: absolute;
             top: -8px;
             right: -8px;
-            background-color: #e74c3c;
+            background-color: var(--secondary-color);
             color: white;
             border-radius: 50%;
-            width: 20px;
-            height: 20px;
+            width: 22px;
+            height: 22px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 12px;
+            font-weight: bold;
         }
         
         nav {
-            background-color: #34495e;
+            background-color: var(--primary-color);
+            border-top: 1px solid rgba(255,255,255,0.1);
         }
         
         .categories {
             display: flex;
             list-style: none;
-            padding: 10px 0;
+            padding: 0;
             overflow-x: auto;
             white-space: nowrap;
+            scrollbar-width: none;
+        }
+        
+        .categories::-webkit-scrollbar {
+            display: none;
         }
         
         .categories li {
-            margin-right: 20px;
+            flex-shrink: 0;
         }
         
         .categories a {
             color: white;
             text-decoration: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            transition: background-color 0.3s;
+            padding: 12px 20px;
+            display: block;
+            position: relative;
+            font-weight: 500;
+            transition: all 0.3s;
         }
         
         .categories a:hover, .categories a.active {
-            background-color: #e74c3c;
+            color: var(--secondary-color);
+        }
+        
+        .categories a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 20px;
+            right: 20px;
+            height: 3px;
+            background-color: var(--secondary-color);
         }
         
         main {
-            padding: 20px 0;
+            padding: 30px 0;
+        }
+        
+        .section-title {
+            margin-bottom: 20px;
+            color: var(--dark-color);
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background-color: var(--secondary-color);
         }
         
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
+            gap: 25px;
         }
         
         .product-card {
             background-color: white;
-            border-radius: 8px;
+            border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
         }
         
         .product-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
         
         .product-image {
@@ -153,37 +230,23 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s;
+            transition: transform 0.5s ease;
         }
         
         .product-card:hover .product-image img {
             transform: scale(1.05);
         }
         
-        .product-actions {
+        .product-badge {
             position: absolute;
-            bottom: 10px;
-            right: 10px;
-            display: flex;
-            gap: 5px;
-        }
-        
-        .action-btn {
-            background-color: rgba(255,255,255,0.8);
-            border: none;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .action-btn:hover {
-            background-color: #e74c3c;
+            top: 10px;
+            left: 10px;
+            background-color: var(--secondary-color);
             color: white;
+            padding: 5px 10px;
+            border-radius: 3px;
+            font-size: 12px;
+            font-weight: bold;
         }
         
         .product-info {
@@ -192,29 +255,43 @@
         
         .product-title {
             font-size: 16px;
-            margin-bottom: 5px;
-            cursor: pointer;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-color);
         }
         
         .product-price {
             font-weight: bold;
-            color: #e74c3c;
-            margin-bottom: 10px;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .product-price .old-price {
+            text-decoration: line-through;
+            color: var(--text-light);
+            font-size: 14px;
+            margin-left: 5px;
         }
         
         .add-to-cart {
-            background-color: #2c3e50;
+            background-color: var(--primary-color);
             color: white;
             border: none;
-            padding: 8px 15px;
+            padding: 10px 15px;
             border-radius: 5px;
             width: 100%;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
         
         .add-to-cart:hover {
-            background-color: #e74c3c;
+            background-color: var(--secondary-color);
         }
         
         /* Modal */
@@ -234,10 +311,11 @@
             background-color: white;
             margin: 50px auto;
             width: 90%;
-            max-width: 800px;
-            border-radius: 8px;
+            max-width: 900px;
+            border-radius: 10px;
             overflow: hidden;
             animation: modalFadeIn 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
         
         @keyframes modalFadeIn {
@@ -255,8 +333,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px;
-            background-color: #2c3e50;
+            padding: 20px;
+            background-color: var(--primary-color);
             color: white;
         }
         
@@ -264,27 +342,32 @@
             background: none;
             border: none;
             color: white;
-            font-size: 24px;
+            font-size: 28px;
             cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .close-modal:hover {
+            transform: rotate(90deg);
         }
         
         .modal-body {
             display: flex;
             flex-direction: column;
-            padding: 20px;
+            padding: 0;
         }
         
         @media (min-width: 768px) {
             .modal-body {
                 flex-direction: row;
-                gap: 20px;
             }
         }
         
         .modal-image {
             flex: 1;
-            min-height: 300px;
+            min-height: 400px;
             overflow: hidden;
+            position: relative;
         }
         
         .modal-image img {
@@ -295,42 +378,105 @@
         
         .modal-info {
             flex: 1;
+            padding: 30px;
         }
         
         .modal-title {
-            font-size: 24px;
-            margin-bottom: 10px;
+            font-size: 28px;
+            margin-bottom: 15px;
+            color: var(--dark-color);
         }
         
         .modal-price {
-            font-size: 20px;
-            color: #e74c3c;
-            margin-bottom: 15px;
+            font-size: 24px;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            font-weight: bold;
         }
         
         .modal-description {
-            margin-bottom: 20px;
-            line-height: 1.6;
+            margin-bottom: 25px;
+            line-height: 1.7;
+            color: var(--text-color);
+        }
+        
+        .product-details {
+            margin-bottom: 25px;
+        }
+        
+        .product-details h4 {
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+        
+        .product-details ul {
+            list-style: none;
+        }
+        
+        .product-details li {
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .product-details li::before {
+            content: '•';
+            color: var(--secondary-color);
+            margin-right: 10px;
+            font-size: 20px;
         }
         
         .modal-actions {
             display: flex;
-            gap: 10px;
+            gap: 15px;
+        }
+        
+        .modal-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .modal-btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+            flex: 1;
+        }
+        
+        .modal-btn-primary:hover {
+            background-color: var(--secondary-color);
+        }
+        
+        .modal-btn-secondary {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+        }
+        
+        .modal-btn-secondary:hover {
+            background-color: #ddd;
         }
         
         /* Cart Sidebar */
         .cart-sidebar {
             position: fixed;
             top: 0;
-            right: -400px;
+            right: -450px;
             width: 100%;
-            max-width: 400px;
+            max-width: 450px;
             height: 100%;
             background-color: white;
-            box-shadow: -2px 0 5px rgba(0,0,0,0.1);
-            transition: right 0.3s;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            transition: right 0.4s cubic-bezier(0.22, 1, 0.36, 1);
             z-index: 1000;
             overflow-y: auto;
+            display: flex;
+            flex-direction: column;
         }
         
         .cart-sidebar.open {
@@ -341,27 +487,35 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px;
-            background-color: #2c3e50;
+            padding: 20px;
+            background-color: var(--primary-color);
             color: white;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
         
         .close-cart {
             background: none;
             border: none;
             color: white;
-            font-size: 24px;
+            font-size: 28px;
             cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .close-cart:hover {
+            transform: rotate(90deg);
         }
         
         .cart-items {
-            padding: 15px;
+            padding: 20px;
+            flex: 1;
+            overflow-y: auto;
         }
         
         .cart-item {
             display: flex;
-            margin-bottom: 15px;
-            padding-bottom: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
             border-bottom: 1px solid #eee;
         }
         
@@ -370,6 +524,8 @@
             height: 80px;
             overflow: hidden;
             margin-right: 15px;
+            border-radius: 5px;
+            flex-shrink: 0;
         }
         
         .cart-item-image img {
@@ -385,11 +541,13 @@
         .cart-item-title {
             font-size: 16px;
             margin-bottom: 5px;
+            font-weight: 500;
         }
         
         .cart-item-price {
-            color: #e74c3c;
-            margin-bottom: 5px;
+            color: var(--secondary-color);
+            margin-bottom: 10px;
+            font-weight: bold;
         }
         
         .cart-item-quantity {
@@ -398,60 +556,93 @@
         }
         
         .quantity-btn {
-            width: 25px;
-            height: 25px;
-            background-color: #f5f5f5;
+            width: 30px;
+            height: 30px;
+            background-color: var(--light-color);
             border: none;
             cursor: pointer;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        
+        .quantity-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
         }
         
         .quantity-input {
             width: 40px;
             text-align: center;
             margin: 0 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 5px;
         }
         
         .remove-item {
             background: none;
             border: none;
-            color: #e74c3c;
+            color: var(--secondary-color);
             cursor: pointer;
-            margin-left: auto;
+            margin-left: 15px;
+            font-size: 18px;
+            transition: transform 0.2s;
+        }
+        
+        .remove-item:hover {
+            transform: scale(1.2);
         }
         
         .cart-total {
-            padding: 15px;
-            background-color: #f5f5f5;
+            padding: 20px;
+            background-color: var(--light-color);
             text-align: right;
-            font-size: 18px;
+            font-size: 20px;
             font-weight: bold;
+            border-top: 1px solid #ddd;
         }
         
         .cart-actions {
-            padding: 15px;
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
+            gap: 15px;
+            border-top: 1px solid #eee;
         }
         
         .cart-btn {
-            padding: 10px 20px;
+            padding: 12px 25px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+            font-weight: 500;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
         
         .continue-shopping {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+        }
+        
+        .continue-shopping:hover {
             background-color: #ddd;
         }
         
         .checkout {
-            background-color: #2c3e50;
+            background-color: var(--primary-color);
             color: white;
         }
         
         .checkout:hover {
-            background-color: #e74c3c;
+            background-color: var(--secondary-color);
         }
         
         .overlay {
@@ -463,12 +654,61 @@
             height: 100%;
             background-color: rgba(0,0,0,0.5);
             z-index: 999;
+            backdrop-filter: blur(3px);
         }
         
         .overlay.active {
             display: block;
         }
         
+        .empty-cart-message {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-light);
+        }
+        
+        .empty-cart-message i {
+            font-size: 50px;
+            margin-bottom: 20px;
+            color: #ddd;
+        }
+        
+        /* Feedback */
+        .feedback-message {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 5px;
+            z-index: 1001;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            animation: slideIn 0.3s, fadeOut 0.5s 1.5s forwards;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateY(100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+        }
+        
+        /* Responsive */
         @media (max-width: 768px) {
             .header-content {
                 flex-direction: column;
@@ -476,7 +716,7 @@
             }
             
             .search-box input {
-                width: 150px;
+                width: 100%;
             }
             
             .modal-body {
@@ -484,7 +724,57 @@
             }
             
             .modal-image {
-                min-height: 200px;
+                min-height: 250px;
+            }
+            
+            .modal-actions {
+                flex-direction: column;
+            }
+            
+            .modal-btn {
+                width: 100%;
+            }
+            
+            .cart-sidebar {
+                max-width: 100%;
+            }
+            
+            .cart-actions {
+                flex-direction: column;
+            }
+            
+            .cart-btn {
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .categories a {
+                padding: 12px 15px;
+                font-size: 14px;
+            }
+            
+            .product-card {
+                width: 100%;
+            }
+            
+            .modal-info {
+                padding: 20px;
+            }
+            
+            .modal-title {
+                font-size: 24px;
+            }
+            
+            .cart-item {
+                flex-direction: column;
+            }
+            
+            .cart-item-image {
+                width: 100%;
+                height: 150px;
+                margin-right: 0;
+                margin-bottom: 15px;
             }
         }
     </style>
@@ -493,14 +783,17 @@
     <header>
         <div class="container">
             <div class="header-content">
-                <div class="logo">Mi Tienda Online</div>
+                <div class="logo">
+                    <img src="https://via.placeholder.com/40x40?text=YC" alt="YankoCompany">
+                    Yanko<span>Company</span>
+                </div>
                 <div class="search-cart">
                     <div class="search-box">
                         <input type="text" placeholder="Buscar productos..." id="search-input">
-                        <button id="search-btn">🔍</button>
+                        <button id="search-btn"><i class="fas fa-search"></i></button>
                     </div>
                     <div class="cart-icon" id="cart-icon">
-                        🛒
+                        <i class="fas fa-shopping-cart"></i>
                         <span class="cart-count" id="cart-count">0</span>
                     </div>
                 </div>
@@ -521,6 +814,7 @@
     </header>
     
     <main class="container">
+        <h2 class="section-title">Nuestros Productos</h2>
         <div class="products-grid" id="products-grid">
             <!-- Productos se cargarán aquí dinámicamente -->
         </div>
@@ -540,8 +834,21 @@
                 <div class="modal-info">
                     <div class="modal-price" id="modal-price">$0.00</div>
                     <p class="modal-description" id="modal-description">Descripción del producto...</p>
+                    
+                    <div class="product-details">
+                        <h4>Características:</h4>
+                        <ul id="product-features">
+                            <!-- Características se agregarán dinámicamente -->
+                        </ul>
+                    </div>
+                    
                     <div class="modal-actions">
-                        <button class="add-to-cart" id="modal-add-to-cart">Añadir al carrito</button>
+                        <button class="modal-btn modal-btn-primary" id="modal-add-to-cart">
+                            <i class="fas fa-cart-plus"></i> Añadir al carrito
+                        </button>
+                        <button class="modal-btn modal-btn-secondary" id="close-and-continue">
+                            <i class="fas fa-arrow-left"></i> Seguir viendo
+                        </button>
                     </div>
                 </div>
             </div>
@@ -552,93 +859,158 @@
     <div class="overlay" id="overlay"></div>
     <div class="cart-sidebar" id="cart-sidebar">
         <div class="cart-header">
-            <h2>Tu Carrito</h2>
+            <h2><i class="fas fa-shopping-cart"></i> Tu Carrito</h2>
             <button class="close-cart" id="close-cart">&times;</button>
         </div>
         <div class="cart-items" id="cart-items">
             <!-- Items del carrito se cargarán aquí -->
-            <p class="empty-cart-message">Tu carrito está vacío</p>
+            <div class="empty-cart-message">
+                <i class="fas fa-shopping-basket"></i>
+                <p>Tu carrito está vacío</p>
+            </div>
         </div>
         <div class="cart-total" id="cart-total">
             Total: $0.00
         </div>
         <div class="cart-actions">
-            <button class="cart-btn continue-shopping" id="continue-shopping">Seguir comprando</button>
-            <button class="cart-btn checkout" id="checkout">Pagar por WhatsApp</button>
+            <button class="cart-btn continue-shopping" id="continue-shopping">
+                <i class="fas fa-arrow-left"></i> Seguir comprando
+            </button>
+            <button class="cart-btn checkout" id="checkout">
+                <i class="fab fa-whatsapp"></i> Pagar por WhatsApp
+            </button>
         </div>
     </div>
     
     <script>
-        // Base de datos de productos (puedes reemplazar con datos reales de tu backend)
+        // Base de datos de productos para YankoCompany
         const products = [
             {
                 id: 1,
-                title: "Smartphone X",
+                title: "Smartphone Yanko X1",
                 price: 599.99,
-                image: "https://via.placeholder.com/300x300?text=Smartphone+X",
-                description: "El último smartphone con cámara de 48MP, pantalla AMOLED de 6.5 pulgadas y 128GB de almacenamiento.",
-                category: "electronics"
+                image: "https://via.placeholder.com/600x600?text=Smartphone+Yanko",
+                description: "El último smartphone de YankoCompany con cámara de 48MP, pantalla AMOLED de 6.5 pulgadas y 128GB de almacenamiento. Diseño premium con procesador de última generación.",
+                category: "electronics",
+                features: [
+                    "Pantalla AMOLED 6.5'' Full HD+",
+                    "Cámara triple 48MP + 12MP + 5MP",
+                    "128GB almacenamiento, 8GB RAM",
+                    "Batería 4500mAh con carga rápida",
+                    "Procesador Yanko X1 Octa-core"
+                ]
             },
             {
                 id: 2,
-                title: "Laptop Pro",
+                title: "Laptop Yanko Pro",
                 price: 999.99,
-                image: "https://via.placeholder.com/300x300?text=Laptop+Pro",
-                description: "Laptop potente con procesador i7, 16GB RAM y SSD de 512GB. Ideal para trabajo y juegos.",
-                category: "electronics"
+                oldPrice: 1199.99,
+                image: "https://via.placeholder.com/600x600?text=Laptop+Yanko",
+                description: "Laptop potente de YankoCompany con procesador i7 de 11va generación, 16GB RAM y SSD de 512GB. Ideal para trabajo profesional y gaming.",
+                category: "electronics",
+                features: [
+                    "Procesador Intel i7-1165G7",
+                    "16GB RAM DDR4, 512GB SSD",
+                    "Pantalla 15.6'' Full HD IPS",
+                    "Tarjeta gráfica NVIDIA MX450",
+                    "Batería de hasta 10 horas"
+                ]
             },
             {
                 id: 3,
-                title: "Camiseta Casual",
-                price: 24.99,
-                image: "https://via.placeholder.com/300x300?text=Camiseta+Casual",
-                description: "Camiseta 100% algodón, disponible en varios colores. Tallas S a XXL.",
-                category: "clothing"
+                title: "Camiseta Yanko Premium",
+                price: 34.99,
+                image: "https://via.placeholder.com/600x600?text=Camiseta+Yanko",
+                description: "Camiseta premium 100% algodón orgánico de YankoCompany, disponible en varios colores. Corte moderno y cómodo para uso diario.",
+                category: "clothing",
+                features: [
+                    "100% algodón orgánico",
+                    "Disponible en tallas S-XXL",
+                    "Colores: Negro, Blanco, Gris",
+                    "Estampado resistente al lavado",
+                    "Hecho con materiales sostenibles"
+                ]
             },
             {
                 id: 4,
-                title: "Sofá Moderno",
-                price: 499.99,
-                image: "https://via.placeholder.com/300x300?text=Sofá+Moderno",
-                description: "Sofá de tres plazas con tapizado en tela resistente. Color gris antracita.",
-                category: "home"
+                title: "Sofá Yanko Modern",
+                price: 699.99,
+                oldPrice: 799.99,
+                image: "https://via.placeholder.com/600x600?text=Sofá+Yanko",
+                description: "Sofá de tres plazas de YankoCompany con tapizado en tela resistente y diseño escandinavo. Color gris antracita con detalles en madera.",
+                category: "home",
+                features: [
+                    "Medidas: 200x90x85 cm",
+                    "Estructura de madera sólida",
+                    "Espuma de alta densidad",
+                    "Patas de roble natural",
+                    "Fácil montaje incluido"
+                ]
             },
             {
                 id: 5,
-                title: "Zapatillas Running",
+                title: "Zapatillas Yanko Run",
                 price: 89.99,
-                image: "https://via.placeholder.com/300x300?text=Zapatillas+Running",
-                description: "Zapatillas deportivas con amortiguación para running. Disponible en varios colores.",
-                category: "sports"
+                image: "https://via.placeholder.com/600x600?text=Zapatillas+Yanko",
+                description: "Zapatillas deportivas YankoCompany con tecnología de amortiguación para running. Diseño aerodinámico y materiales transpirables.",
+                category: "sports",
+                features: [
+                    "Suela de goma antideslizante",
+                    "Plantilla ortopédica extraíble",
+                    "Materiales transpirables",
+                    "Disponible en tallas 36-46",
+                    "Peso ligero: 280g"
+                ]
             },
             {
                 id: 6,
-                title: "Crema Hidratante",
-                price: 19.99,
-                image: "https://via.placeholder.com/300x300?text=Crema+Hidratante",
-                description: "Crema hidratante facial con ácido hialurónico. Para todo tipo de pieles.",
-                category: "beauty"
+                title: "Kit Belleza Yanko",
+                price: 49.99,
+                image: "https://via.placeholder.com/600x600?text=Kit+Belleza",
+                description: "Kit completo de belleza YankoCompany con productos naturales para el cuidado facial diario. Incluye limpiador, tónico y crema hidratante.",
+                category: "beauty",
+                features: [
+                    "Ingredientes 100% naturales",
+                    "Para todo tipo de pieles",
+                    "Sin parabenos ni sulfatos",
+                    "Fórmula vegana y cruelty-free",
+                    "Incluye: Limpiador, Tónico, Crema"
+                ]
             },
             {
                 id: 7,
-                title: "Auriculares Inalámbricos",
-                price: 129.99,
-                image: "https://via.placeholder.com/300x300?text=Auriculares+Inalámbricos",
-                description: "Auriculares con cancelación de ruido y 20 horas de batería. Sonido de alta calidad.",
-                category: "electronics"
+                title: "Auriculares Yanko Pro",
+                price: 149.99,
+                image: "https://via.placeholder.com/600x600?text=Auriculares+Yanko",
+                description: "Auriculares inalámbricos YankoCompany con cancelación activa de ruido y 25 horas de batería. Sonido Hi-Res con tecnología Bluetooth 5.2.",
+                category: "electronics",
+                features: [
+                    "Cancelación activa de ruido",
+                    "Hasta 25 horas de batería",
+                    "Bluetooth 5.2, alcance 10m",
+                    "Carga rápida USB-C",
+                    "Control táctil integrado"
+                ]
             },
             {
                 id: 8,
-                title: "Juego de Sábanas",
-                price: 39.99,
-                image: "https://via.placeholder.com/300x300?text=Juego+de+Sábanas",
-                description: "Juego de sábanas de algodón egipcio 600 hilos. Incluye funda de almohada y sábana bajera.",
-                category: "home"
+                title: "Juego de Sábanas Yanko",
+                price: 59.99,
+                image: "https://via.placeholder.com/600x600?text=Sábanas+Yanko",
+                description: "Juego de sábanas premium YankoCompany de algodón egipcio 600 hilos. Incluye funda de almohada y sábana bajera en varios colores.",
+                category: "home",
+                features: [
+                    "Algodón egipcio 600 hilos",
+                    "Incluye: Sábana bajera, funda almohada",
+                    "Colores: Blanco, Beige, Azul",
+                    "Tamaño: Queen (150x200 cm)",
+                    "Lavable a máquina 60°C"
+                ]
             }
         ];
         
         // Variables globales
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let cart = JSON.parse(localStorage.getItem('yanko-cart')) || [];
         let currentCategory = 'all';
         let currentSearch = '';
         
@@ -660,6 +1032,8 @@
         const modalPrice = document.getElementById('modal-price');
         const modalDescription = document.getElementById('modal-description');
         const modalAddToCart = document.getElementById('modal-add-to-cart');
+        const closeAndContinue = document.getElementById('close-and-continue');
+        const productFeatures = document.getElementById('product-features');
         const searchInput = document.getElementById('search-input');
         const searchBtn = document.getElementById('search-btn');
         const categoryLinks = document.querySelectorAll('.categories a');
@@ -682,7 +1056,7 @@
             });
             
             if (filteredProducts.length === 0) {
-                productsGrid.innerHTML = '<p>No se encontraron productos.</p>';
+                productsGrid.innerHTML = '<p class="empty-cart-message"><i class="fas fa-search"></i><p>No se encontraron productos.</p></p>';
                 return;
             }
             
@@ -691,40 +1065,40 @@
                 productCard.className = 'product-card';
                 productCard.innerHTML = `
                     <div class="product-image">
+                        ${product.oldPrice ? '<span class="product-badge">Oferta</span>' : ''}
                         <img src="${product.image}" alt="${product.title}">
-                        <div class="product-actions">
-                            <button class="action-btn view-btn" data-id="${product.id}">👁️</button>
-                            <button class="action-btn cart-btn" data-id="${product.id}">🛒</button>
-                        </div>
                     </div>
                     <div class="product-info">
-                        <h3 class="product-title" data-id="${product.id}">${product.title}</h3>
-                        <div class="product-price">$${product.price.toFixed(2)}</div>
-                        <button class="add-to-cart" data-id="${product.id}">Añadir al carrito</button>
+                        <h3 class="product-title">${product.title}</h3>
+                        <div class="product-price">
+                            $${product.price.toFixed(2)}
+                            ${product.oldPrice ? `<span class="old-price">$${product.oldPrice.toFixed(2)}</span>` : ''}
+                        </div>
+                        <button class="add-to-cart" data-id="${product.id}">
+                            <i class="fas fa-cart-plus"></i> Añadir al carrito
+                        </button>
                     </div>
                 `;
                 productsGrid.appendChild(productCard);
-            });
-            
-            // Agregar event listeners a los botones
-            document.querySelectorAll('.view-btn').forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    const productId = parseInt(e.target.getAttribute('data-id'));
-                    openProductModal(productId);
+                
+                // Hacer toda la tarjeta clickeable para abrir el modal
+                productCard.addEventListener('click', (e) => {
+                    // Evitar que se active al hacer clic en botones específicos
+                    if (e.target.classList.contains('add-to-cart') || 
+                        e.target.classList.contains('fa-cart-plus') ||
+                        e.target.closest('.add-to-cart')) {
+                        return;
+                    }
+                    openProductModal(product.id);
                 });
             });
             
-            document.querySelectorAll('.cart-btn, .add-to-cart').forEach(btn => {
+            // Agregar event listeners a los botones de añadir al carrito
+            document.querySelectorAll('.add-to-cart').forEach(btn => {
                 btn.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Evitar que el clic se propague a la tarjeta
                     const productId = parseInt(e.target.getAttribute('data-id'));
                     addToCart(productId);
-                });
-            });
-            
-            document.querySelectorAll('.product-title').forEach(title => {
-                title.addEventListener('click', (e) => {
-                    const productId = parseInt(e.target.getAttribute('data-id'));
-                    openProductModal(productId);
                 });
             });
         }
@@ -736,9 +1110,23 @@
             
             modalTitle.textContent = product.title;
             modalImage.src = product.image;
-            modalPrice.textContent = `$${product.price.toFixed(2)}`;
+            modalPrice.innerHTML = `$${product.price.toFixed(2)}${product.oldPrice ? ` <span class="old-price">$${product.oldPrice.toFixed(2)}</span>` : ''}`;
             modalDescription.textContent = product.description;
             modalAddToCart.setAttribute('data-id', product.id);
+            
+            // Limpiar y agregar características
+            productFeatures.innerHTML = '';
+            if (product.features && product.features.length > 0) {
+                product.features.forEach(feature => {
+                    const li = document.createElement('li');
+                    li.textContent = feature;
+                    productFeatures.appendChild(li);
+                });
+            } else {
+                const li = document.createElement('li');
+                li.textContent = "No hay características adicionales disponibles";
+                productFeatures.appendChild(li);
+            }
             
             productModal.style.display = 'block';
             document.body.style.overflow = 'hidden';
@@ -788,29 +1176,33 @@
             saveCartToLocalStorage();
             
             // Mostrar feedback visual
+            showFeedback('¡Producto añadido al carrito!', 'success');
+        }
+        
+        // Mostrar mensaje de feedback
+        function showFeedback(message, type) {
             const feedback = document.createElement('div');
-            feedback.textContent = '¡Producto añadido!';
-            feedback.style.position = 'fixed';
-            feedback.style.bottom = '20px';
-            feedback.style.right = '20px';
-            feedback.style.backgroundColor = '#2c3e50';
-            feedback.style.color = 'white';
-            feedback.style.padding = '10px 20px';
-            feedback.style.borderRadius = '5px';
-            feedback.style.zIndex = '1000';
-            feedback.style.animation = 'fadeInOut 2s';
+            feedback.className = 'feedback-message';
+            feedback.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                ${message}
+            `;
             document.body.appendChild(feedback);
             
             setTimeout(() => {
-                feedback.style.animation = 'fadeOut 0.5s';
-                setTimeout(() => feedback.remove(), 500);
-            }, 1500);
+                feedback.remove();
+            }, 2000);
         }
         
         // Renderizar items del carrito
         function renderCartItems() {
             if (cart.length === 0) {
-                cartItems.innerHTML = '<p class="empty-cart-message">Tu carrito está vacío</p>';
+                cartItems.innerHTML = `
+                    <div class="empty-cart-message">
+                        <i class="fas fa-shopping-basket"></i>
+                        <p>Tu carrito está vacío</p>
+                    </div>
+                `;
                 cartTotal.textContent = 'Total: $0.00';
                 return;
             }
@@ -838,7 +1230,9 @@
                             <button class="quantity-btn plus" data-id="${item.id}">+</button>
                         </div>
                     </div>
-                    <button class="remove-item" data-id="${item.id}">✕</button>
+                    <button class="remove-item" data-id="${item.id}">
+                        <i class="fas fa-times"></i>
+                    </button>
                 `;
                 cartItems.appendChild(cartItem);
             });
@@ -864,6 +1258,11 @@
                 input.addEventListener('change', (e) => {
                     const productId = parseInt(e.target.getAttribute('data-id'));
                     const newQuantity = parseInt(e.target.value);
+                    
+                    if (isNaN(newQuantity) {
+                        e.target.value = 1;
+                        return;
+                    }
                     
                     if (newQuantity < 1) {
                         e.target.value = 1;
@@ -897,6 +1296,8 @@
             updateCartCount();
             saveCartToLocalStorage();
             renderCartItems();
+            
+            showFeedback('Carrito actualizado', 'success');
         }
         
         // Eliminar producto del carrito
@@ -905,6 +1306,8 @@
             updateCartCount();
             saveCartToLocalStorage();
             renderCartItems();
+            
+            showFeedback('Producto eliminado', 'success');
         }
         
         // Actualizar contador del carrito
@@ -915,27 +1318,35 @@
         
         // Guardar carrito en localStorage
         function saveCartToLocalStorage() {
-            localStorage.setItem('cart', JSON.stringify(cart));
+            localStorage.setItem('yanko-cart', JSON.stringify(cart));
         }
         
         // Procesar pago por WhatsApp
         function processWhatsAppPayment() {
-            if (cart.length === 0) return;
+            if (cart.length === 0) {
+                showFeedback('Tu carrito está vacío', 'error');
+                return;
+            }
             
-            let message = "¡Hola! Quiero comprar los siguientes productos:\n\n";
+            let message = "¡Hola YankoCompany! Quiero comprar los siguientes productos:\n\n";
             
             cart.forEach(item => {
-                message += `- ${item.title} (${item.quantity} x $${item.price.toFixed(2)})\n`;
+                message += `- ${item.title} (${item.quantity} x $${item.price.toFixed(2)}) = $${(item.quantity * item.price).toFixed(2)}\n`;
             });
             
             const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            message += `\nTotal: $${total.toFixed(2)}\n\nMis datos de envío son: [COMPLETAR CON DIRECCIÓN]`;
+            message += `\n*Total:* $${total.toFixed(2)}\n\n`;
+            message += "*Mis datos de envío son:*\n";
+            message += "Nombre: [COMPLETAR]\n";
+            message += "Dirección: [COMPLETAR]\n";
+            message += "Teléfono: [COMPLETAR]\n\n";
+            message += "Por favor confirmen disponibilidad y forma de pago. ¡Gracias!";
             
             // Codificar el mensaje para URL
             const encodedMessage = encodeURIComponent(message);
             
-            // Número de WhatsApp (reemplaza con tu número)
-            const whatsappNumber = "+584268092177";
+            // Número de WhatsApp de YankoCompany (reemplazar con el número real)
+            const whatsappNumber = "1234567890";
             
             // Abrir WhatsApp con el mensaje
             window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
@@ -960,6 +1371,11 @@
                     link.classList.remove('active');
                 }
             });
+            
+            // Scroll suave al inicio de los productos
+            document.querySelector('.section-title').scrollIntoView({
+                behavior: 'smooth'
+            });
         }
         
         // Buscar productos
@@ -975,6 +1391,7 @@
         continueShopping.addEventListener('click', closeCartSidebar);
         checkoutBtn.addEventListener('click', processWhatsAppPayment);
         closeModal.addEventListener('click', closeProductModal);
+        closeAndContinue.addEventListener('click', closeProductModal);
         
         categoryLinks.forEach(link => {
             link.addEventListener('click', (e) => {
@@ -993,7 +1410,14 @@
         modalAddToCart.addEventListener('click', (e) => {
             const productId = parseInt(e.target.getAttribute('data-id'));
             addToCart(productId);
-            closeProductModal();
+            showFeedback('¡Producto añadido al carrito!', 'success');
+        });
+        
+        // Cerrar modal al hacer clic fuera del contenido
+        productModal.addEventListener('click', (e) => {
+            if (e.target === productModal) {
+                closeProductModal();
+            }
         });
         
         // Inicializar la tienda al cargar la página
