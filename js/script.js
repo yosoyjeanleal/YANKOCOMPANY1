@@ -1,5 +1,12 @@
  
- 
+ function normalizeText(text) {
+    return text
+        .toLowerCase()
+        .normalize("NFD") // Normaliza los caracteres con acentos
+        .replace(/[\u0300-\u036f]/g, "") // Elimina los acentos
+        .replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, ""); // Elimina signos de puntuación
+}
+
  // Base de datos de productos para YankoCompany
  const products = [
     {
@@ -152,21 +159,28 @@ function initStore() {
 }
 
 // Renderizar productos
-function renderProducts() {
-    productsGrid.innerHTML = '';
-
-    const filteredProducts = products.filter(product => {
-        const matchesCategory = currentCategory === 'all' || product.category === currentCategory;
-        const matchesSearch = product.title.toLowerCase().includes(currentSearch.toLowerCase()) || 
-                            product.description.toLowerCase().includes(currentSearch.toLowerCase());
-        return matchesCategory && matchesSearch;
-    });
-
-    if (filteredProducts.length === 0) {
-        productsGrid.innerHTML = '<p class="empty-cart-message"><i class="fas fa-search"></i><p>No se encontraron productos.</p></p>';
-        return;
-    }
-
+    function renderProducts() {
+        productsGrid.innerHTML = '';
+    
+        const filteredProducts = products.filter(product => {
+            const matchesCategory = currentCategory === 'all' || product.category === currentCategory;
+            
+            // Normalizar tanto el texto de búsqueda como los textos del producto
+            const normalizedSearch = normalizeText(currentSearch);
+            const normalizedTitle = normalizeText(product.title);
+            const normalizedDescription = normalizeText(product.description);
+            
+            const matchesSearch = normalizedTitle.includes(normalizedSearch) || 
+                                normalizedDescription.includes(normalizedSearch);
+            
+            return matchesCategory && matchesSearch;
+        });
+    
+        if (filteredProducts.length === 0) {
+            productsGrid.innerHTML = '<p class="empty-cart-message"><i class="fas fa-search"></i><p>No se encontraron productos.</p></p>';
+            return;
+        }
+   
     filteredProducts.forEach(product => {
         const productCard = document.createElement('div');
         productCard.className = 'product-card';
@@ -392,17 +406,12 @@ function processWhatsAppPayment() {
     
     const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     message += `\n*Total:* $${total.toFixed(2)}\n\n`;
-    message += "*Mis datos de envío son:*\n";
-    message += "Nombre: [COMPLETAR]\n";
-    message += "Dirección: [COMPLETAR]\n";
-    message += "Teléfono: [COMPLETAR]\n\n";
-    message += "Por favor confirmen disponibilidad y forma de pago. ¡Gracias!";
-    
+     
     // Codificar el mensaje para URL
     const encodedMessage = encodeURIComponent(message);
     
     // Número de WhatsApp (reemplaza con tu número real)
-    const whatsappNumber = "1234567890";
+    const whatsappNumber = "+584268092177";
     
     // Abrir WhatsApp con el mensaje
     window.open(`https://wa.me/${whatsappNumber}?text=${encodedMessage}`, '_blank');
