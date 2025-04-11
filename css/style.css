@@ -8,6 +8,15 @@
     --text-light: #7f8c8d;
 }
 
+.loading-skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    to { background-position: -200% 0; }
+}
 * {
     box-sizing: border-box;
     margin: 0;
@@ -762,16 +771,21 @@ main {
         border-bottom: 1px solid rgba(255,255,255,0.1);
     }
     
+    .modal-content {
+        margin: 20px auto;
+        width: 95%;
+    }
+    
     .modal-body {
         flex-direction: column;
     }
     
     .modal-image {
-        min-height: 250px;
+        min-height: 200px;
     }
     
-    .modal-actions {
-        flex-direction: column;
+    .product-details li {
+        font-size: 14px;
     }
     
     .modal-btn {

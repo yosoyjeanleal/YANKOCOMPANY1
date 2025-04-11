@@ -1,0 +1,110 @@
+[
+    {
+        "id": 1,
+        "title": "Smartphone Yanko X1",
+        "price": 599.99,
+        "image": "https://via.placeholder.com/600x600?text=Smartphone+Yanko",
+        "description": "El último smartphone de YankoCompany con cámara de 48MP, pantalla AMOLED de 6.5 pulgadas y 128GB de almacenamiento. Diseño premium con procesador de última generación.",
+        "category": "electronics",
+        "features": [
+            "Pantalla AMOLED 6.5'' Full HD+",
+            "Cámara triple 48MP + 12MP + 5MP",
+            "128GB almacenamiento, 8GB RAM",
+            "Batería 4500mAh con carga rápida",
+            "Procesador Yanko X1 Octa-core"
+        ]
+    },
+    {
+        "id": 2,
+        "title": "Laptop Yanko Pro",
+        "price": 999.99,
+        "oldPrice": 1199.99,
+        "image": "https://via.placeholder.com/600x600?text=Laptop+Yanko",
+        "description": "Laptop potente de YankoCompany con procesador i7 de 11va generación, 16GB RAM y SSD de 512GB. Ideal para trabajo profesional y gaming.",
+        "category": "electronics",
+        "features": [
+            "Procesador Intel i7-1165G7",
+            "16GB RAM DDR4, 512GB SSD",
+            "Pantalla 15.6'' Full HD IPS",
+            "Tarjeta gráfica NVIDIA MX450",
+            "Batería de hasta 10 horas"
+        ]
+    },
+    {
+        "id": 3,
+        "title": "Camiseta Yanko Premium",
+        "price": 34.99,
+        "image": "https://via.placeholder.com/600x600?text=Camiseta+Yanko",
+        "description": "Camiseta premium 100% algodón orgánico de YankoCompany, disponible en varios colores. Corte moderno y cómodo para uso diario.",
+        "category": "clothing",
+        "features": [
+            "100% algodón orgánico",
+            "Disponible en tallas S-XXL",
+            "Colores: Negro, Blanco, Gris",
+            "Estampado resistente al lavado",
+            "Hecho con materiales sostenibles"
+        ]
+    },
+    {
+        "id": 4,
+        "title": "Sofá Yanko Modern",
+        "price": 699.99,
+        "oldPrice": 799.99,
+        "image": "https://via.placeholder.com/600x600?text=Sofá+Yanko",
+        "description": "Sofá de tres plazas de YankoCompany con tapizado en tela resistente y diseño escandinavo. Color gris antracita con detalles en madera.",
+        "category": "home",
+        "features": [
+            "Medidas: 200x90x85 cm",
+            "Estructura de madera sólida",
+            "Espuma de alta densidad",
+            "Patas de roble natural",
+            "Fácil montaje incluido"
+        ]
+    },
+    {
+        "id": 5,
+        "title": "Zapatillas Yanko Run",
+        "price": 89.99,
+        "oldPrice": 109.99,
+        "image": "https://via.placeholder.com/600x600?text=Zapatillas+Yanko",
+        "description": "Zapatillas deportivas de YankoCompany con tecnología de amortiguación para running. Ideales para entrenamientos de alto impacto.",
+        "category": "sports",
+        "features": [
+            "Material transpirable",
+            "Suela de goma antideslizante",
+            "Amortiguación de aire",
+            "Disponible en tallas 36-46",
+            "Peso ligero: 280g"
+        ]
+    },
+    {
+        "id": 6,
+        "title": "Reloj Yanko Smart",
+        "price": 149.99,
+        "image": "https://via.placeholder.com/600x600?text=Reloj+Yanko",
+        "description": "Reloj inteligente de YankoCompany con monitor de frecuencia cardíaca, podómetro y notificaciones de smartphone. Resistente al agua.",
+        "category": "electronics",
+        "features": [
+            "Pantalla táctil AMOLED 1.4''",
+            "Batería de 7 días de duración",
+            "Resistente al agua IP68",
+            "Compatibilidad con iOS y Android",
+            "Monitor de sueño y estrés"
+        ]
+    },
+    {
+        "id": 7,
+        "title": "Crema Facial Yanko",
+        "price": 24.99,
+        "image": "https://via.placeholder.com/600x600?text=Crema+Yanko",
+        "description": "Crema facial hidratante de YankoCompany con ingredientes naturales. Ideal para todo tipo de pieles, especialmente sensibles.",
+        "category": "beauty",
+        "features": [
+            "Hidratación 24 horas",
+            "Con aloe vera y vitamina E",
+            "Sin parabenos ni sulfatos",
+            "Dermatológicamente testada",
+            "Fórmula no comedogénica"
+        ]
+    }
+]
